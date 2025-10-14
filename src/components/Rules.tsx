@@ -130,7 +130,11 @@ export default function Rules() {
                           <span className="px-2 py-0.5 rounded bg-secondary text-secondary-foreground">
                             {rule.type}
                           </span>
-                          <span className={`font-medium ${getProxyColor(rule.proxy)}`}>
+                          <span
+                            className={`font-medium ${getProxyColor(
+                              rule.proxy
+                            )}`}
+                          >
                             {rule.proxy}
                           </span>
                         </div>
@@ -154,7 +158,9 @@ export default function Rules() {
                 variant="outline"
               >
                 <RefreshCw
-                  className={`h-4 w-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`}
+                  className={`h-4 w-4 mr-2 ${
+                    isRefreshing ? "animate-spin" : ""
+                  }`}
                 />
                 Refresh All
               </Button>
@@ -200,7 +206,9 @@ export default function Rules() {
                               disabled={isRefreshingThis}
                             >
                               <RefreshCw
-                                className={`h-3 w-3 ${isRefreshingThis ? "animate-spin" : ""}`}
+                                className={`h-3 w-3 ${
+                                  isRefreshingThis ? "animate-spin" : ""
+                                }`}
                               />
                             </Button>
                             <span className="text-xs text-muted-foreground">
@@ -233,4 +241,3 @@ function getTimeAgo(date: Date): string {
   if (diffMins > 0) return `${diffMins}m`;
   return "just now";
 }
-

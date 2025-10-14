@@ -1,4 +1,9 @@
-import { buildURL, defaultAPIConfig, getHeaders, type APIConfig } from "./config";
+import {
+  buildURL,
+  defaultAPIConfig,
+  getHeaders,
+  type APIConfig,
+} from "./config";
 
 export type Rule = {
   id: number;
@@ -65,9 +70,7 @@ export async function fetchRuleProviders(
     });
 
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch rule providers: ${response.statusText}`
-      );
+      throw new Error(`Failed to fetch rule providers: ${response.statusText}`);
     }
 
     const data: RuleProvidersResponse = await response.json();
