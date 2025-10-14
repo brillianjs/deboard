@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme - inspired by craftz.dog */
+    --background: 38 100% 98%;
+    --foreground: 220 20% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 15%;
+    --primary: 175 60% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 340 82% 67%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 38 50% 95%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 340 82% 95%;
+    --accent-foreground: 340 82% 40%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 38 30% 90%;
+    --input: 38 30% 90%;
+    --ring: 175 60% 50%;
+    --radius: 1rem;
+    --chart-1: 175 60% 50%;
+    --chart-2: 340 82% 67%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 270 60% 60%;
+    --chart-5: 160 60% 45%;
+  }
+
+  .dark {
+    /* Dark theme - inspired by craftz.dog */
+    --background: 220 25% 8%;
+    --foreground: 38 50% 95%;
+    --card: 220 20% 12%;
+    --card-foreground: 38 50% 95%;
+    --popover: 220 20% 10%;
+    --popover-foreground: 38 50% 95%;
+    --primary: 175 60% 55%;
+    --primary-foreground: 220 25% 8%;
+    --secondary: 340 82% 67%;
+    --secondary-foreground: 220 25% 8%;
+    --muted: 220 20% 18%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 220 20% 20%;
+    --accent-foreground: 175 60% 55%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 20% 20%;
+    --input: 220 20% 20%;
+    --ring: 175 60% 55%;
+    --chart-1: 175 60% 55%;
+    --chart-2: 340 82% 67%;
+    --chart-3: 38 92% 60%;
+    --chart-4: 270 60% 65%;
+    --chart-5: 160 60% 50%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
