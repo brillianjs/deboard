@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
-import { ProxyGroup } from "@/components/ProxyGroup";
+import { Search, RefreshCw } from "lucide-react";
+import { ProxyGroupCard } from "@/components/ProxyGroupCard";
 import { fetchProxies } from "@/api/proxies";
 import type {
   ProxiesResponse,
   ProxyGroup as ProxyGroupType,
 } from "@/api/proxies";
 import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 export default function Proxies() {
   const [proxiesData, setProxiesData] = useState<ProxiesResponse | null>(null);
@@ -79,49 +80,60 @@ export default function Proxies() {
   });
 
   return (
-    <div className="space-y-4 md:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div className="space-y-3 md:space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold">Proxies</h1>
-          <p className="text-muted-foreground mt-1">
+          <p className="text-muted-foreground mt-1 text-sm">
             {proxyGroups.length} groups •{" "}
             {Object.keys(proxiesData.proxies).length} proxies
           </p>
         </div>
-        <div className="relative flex-shrink-0 sm:w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder="Search proxies..."
-            value={searchQuery}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchQuery(e.target.value)
-            }
-            className="pl-9"
-          />
+        <div className="flex items-center gap-2">
+          <div className="relative flex-shrink-0 w-full sm:w-64">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search proxies..."
+              value={searchQuery}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchQuery(e.target.value)
+              }
+              className="pl-9"
+            />
+          </div>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={loadProxies}
+            disabled={loading}
+            title="Refresh proxies"
+          >
+            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+          </Button>
         </div>
       </div>
 
-      <div className="space-y-4">
-        {filteredGroups.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">
-              {searchQuery
-                ? "No proxies found matching your search"
-                : "No proxy groups available"}
-            </p>
-          </div>
-        ) : (
-          filteredGroups.map((group) => (
-            <ProxyGroup
+      {filteredGroups.length === 0 ? (
+        <div className="text-center py-12 border border-border rounded-lg">
+          <p className="text-muted-foreground">
+            {searchQuery
+              ? "No proxies found matching your search"
+              : "No proxy groups available"}
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4">
+          {filteredGroups.map((group) => (
+            <ProxyGroupCard
               key={group.name}
               group={group}
               proxies={proxiesData.proxies}
               onProxyChange={loadProxies}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
