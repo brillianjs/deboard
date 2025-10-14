@@ -6,7 +6,6 @@ import {
   FileText,
   Settings,
   Link as LinkIcon,
-  Home,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { ThemeToggle } from "./theme-toggle";
@@ -70,7 +69,7 @@ export default function SideBar() {
       {/* Logo */}
       <div className="mb-8 px-4">
         <div className="flex items-center justify-center gap-3 py-4 px-4 rounded-xl bg-primary/10">
-          <Home className="h-6 w-6 text-primary" />
+          <img src="/logo.png" alt="Logo" className="h-6 w-6" />
           <span className="text-2xl font-bold text-primary">Deboard</span>
         </div>
       </div>

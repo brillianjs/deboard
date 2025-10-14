@@ -1,25 +1,54 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { trafficManager, connectionsManager } from "@/api/traffic";
+import { formatSpeed, formatBytes } from "@/lib/format";
 
 interface TrafficStats {
   upload: string;
   download: string;
   uploadTotal: string;
   downloadTotal: string;
-  activeConnections: number;
 }
 
 export default function TrafficNow() {
-  // Mock data - replace with real API data
-  const stats: TrafficStats = {
+  const [stats, setStats] = useState<TrafficStats>({
     upload: "0 B/s",
     download: "0 B/s",
     uploadTotal: "0 B",
     downloadTotal: "0 B",
-    activeConnections: 0,
-  };
+  });
+
+  useEffect(() => {
+    // Subscribe to traffic updates
+    const unsubscribeTraffic = trafficManager.subscribe((traffic) => {
+      setStats((prev) => ({
+        ...prev,
+        upload: formatSpeed(traffic.up),
+        download: formatSpeed(traffic.down),
+      }));
+    });
+
+    // Subscribe to connections updates
+    const unsubscribeConnections = connectionsManager.subscribe((data) => {
+      setStats((prev) => ({
+        ...prev,
+        uploadTotal: formatBytes(data.uploadTotal),
+        downloadTotal: formatBytes(data.downloadTotal),
+      }));
+    });
+
+    // Fetch initial data
+    trafficManager.fetchData();
+    connectionsManager.fetchData();
+
+    return () => {
+      unsubscribeTraffic();
+      unsubscribeConnections();
+    };
+  }, []);
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <Card className="border-border/50">
         <CardContent className="p-4">
           <div className="text-xs text-muted-foreground mb-2">Upload</div>
@@ -51,16 +80,6 @@ export default function TrafficNow() {
           </div>
           <div className="text-xl sm:text-2xl font-bold text-foreground">
             {stats.downloadTotal}
-          </div>
-        </CardContent>
-      </Card>
-      <Card className="border-border/50">
-        <CardContent className="p-4">
-          <div className="text-xs text-muted-foreground mb-2">
-            Active Connections
-          </div>
-          <div className="text-xl sm:text-2xl font-bold text-foreground">
-            {stats.activeConnections}
           </div>
         </CardContent>
       </Card>

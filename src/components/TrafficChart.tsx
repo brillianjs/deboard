@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +13,8 @@ import {
 import type { ChartOptions } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { trafficManager } from "@/api/traffic";
+import { formatBytes } from "@/lib/format";
 
 // Register ChartJS components
 ChartJS.register(
@@ -26,39 +28,64 @@ ChartJS.register(
   Filler
 );
 
-// Format bytes to human readable
-function formatBytes(bytes: number): string {
-  if (bytes === 0) return "0 B";
-  const k = 1024;
-  const sizes = ["B", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return Math.round(bytes / Math.pow(k, i)) + " " + sizes[i];
-}
-
 export default function TrafficChart() {
   const chartRef = useRef<ChartJS<"line">>(null);
+  const [chartData, setChartData] = useState({
+    labels: [] as string[],
+    up: [] as number[],
+    down: [] as number[],
+  });
 
-  // Mock data - replace with real API data
-  const mockData = {
-    labels: Array.from({ length: 60 }, (_, i) => {
-      const now = new Date();
-      now.setSeconds(now.getSeconds() - (60 - i));
-      return now.toLocaleTimeString("en-US", {
+  useEffect(() => {
+    // Fetch initial data
+    const traffic = trafficManager.fetchData();
+
+    // Convert timestamps to time strings
+    const labels = traffic.labels.map((timestamp) => {
+      const date = new Date(timestamp);
+      return date.toLocaleTimeString("en-US", {
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
       });
-    }),
-    up: Array.from({ length: 60 }, () => Math.random() * 1000000),
-    down: Array.from({ length: 60 }, () => Math.random() * 2000000),
-  };
+    });
+
+    setChartData({
+      labels,
+      up: traffic.up,
+      down: traffic.down,
+    });
+
+    // Subscribe to updates
+    const unsubscribe = trafficManager.subscribe(() => {
+      const traffic = trafficManager.fetchData();
+      const labels = traffic.labels.map((timestamp) => {
+        const date = new Date(timestamp);
+        return date.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+      });
+
+      setChartData({
+        labels,
+        up: [...traffic.up],
+        down: [...traffic.down],
+      });
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const data = {
-    labels: mockData.labels,
+    labels: chartData.labels,
     datasets: [
       {
         label: "Upload",
-        data: mockData.up,
+        data: chartData.up,
         borderColor: "rgb(94, 234, 212)", // teal-300
         backgroundColor: "rgba(94, 234, 212, 0.2)",
         borderWidth: 2,
@@ -68,7 +95,7 @@ export default function TrafficChart() {
       },
       {
         label: "Download",
-        data: mockData.down,
+        data: chartData.down,
         borderColor: "rgb(251, 113, 133)", // rose-400
         backgroundColor: "rgba(251, 113, 133, 0.2)",
         borderWidth: 2,
@@ -83,6 +110,9 @@ export default function TrafficChart() {
     responsive: true,
     maintainAspectRatio: true,
     aspectRatio: window.innerWidth < 768 ? 1.5 : 3,
+    animation: {
+      duration: 0, // Disable animation for smooth real-time updates
+    },
     interaction: {
       mode: "index",
       intersect: false,
