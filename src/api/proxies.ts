@@ -82,3 +82,50 @@ export async function testProxyDelay(
 
   return await response.json();
 }
+
+// Get proxy providers
+export async function fetchProxyProviders(
+  config: APIConfig = defaultAPIConfig
+): Promise<{
+  providers: Record<
+    string,
+    {
+      name: string;
+      type: string;
+      vehicleType: string;
+      updatedAt: string;
+      proxies?: Proxy[];
+    }
+  >;
+}> {
+  const url = buildURL("/providers/proxies", config);
+  const response = await fetch(url, {
+    method: "GET",
+    headers: getHeaders(config),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch proxy providers: ${response.statusText}`);
+  }
+
+  return await response.json();
+}
+
+// Update proxy provider
+export async function updateProxyProvider(
+  providerName: string,
+  config: APIConfig = defaultAPIConfig
+): Promise<void> {
+  const url = buildURL(
+    `/providers/proxies/${encodeURIComponent(providerName)}`,
+    config
+  );
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(config),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to update proxy provider: ${response.statusText}`);
+  }
+}

@@ -3,6 +3,7 @@ import { HashRouter as Router, useRoutes } from "react-router-dom";
 import SideBar from "./SideBar";
 import BottomNav from "./BottomNav";
 import { FloatingThemeToggle } from "./FloatingThemeToggle";
+import { Toaster } from "@/components/ui/toaster";
 import Home from "./Home";
 import { ThemeProvider } from "./theme-provider";
 
@@ -56,6 +57,7 @@ const Root = () => (
   <Router>
     <ThemeProvider defaultTheme="system" storageKey="deboard-ui-theme">
       <App />
+      <Toaster />
     </ThemeProvider>
   </Router>
 );

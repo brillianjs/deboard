@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Check, Zap, ChevronDown } from "lucide-react";
+import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Popover,
@@ -32,9 +33,15 @@ export function ProxyGroupCard({
     setIsOpen(false);
     try {
       await switchProxy(group.name, proxyName);
+      toast.success(`Switched to ${proxyName}`);
       onProxyChange();
     } catch (error) {
       console.error("Failed to switch proxy:", error);
+      toast.error(
+        `Failed to switch proxy: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
     } finally {
       setSwitchingProxy(null);
     }
@@ -47,10 +54,15 @@ export function ProxyGroupCard({
     setTestingProxies((prev) => new Set(prev).add(proxyName));
 
     try {
-      await testProxyDelay(proxyName);
+      const result = await testProxyDelay(proxyName);
+      const delay = result?.delay;
+      if (delay !== undefined) {
+        toast.success(`${proxyName}: ${delay}ms`);
+      }
       onProxyChange();
     } catch (error) {
       console.error("Failed to test proxy delay:", error);
+      toast.error(`Failed to test ${proxyName}`);
     } finally {
       setTestingProxies((prev) => {
         const newSet = new Set(prev);

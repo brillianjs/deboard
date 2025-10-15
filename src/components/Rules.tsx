@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -32,27 +33,47 @@ export default function Rules() {
   }, []);
 
   const loadRules = async () => {
-    const data = await fetchRules();
-    setRules(data);
+    try {
+      const data = await fetchRules();
+      setRules(data);
+    } catch {
+      toast.error("Failed to load rules");
+    }
   };
 
   const loadProviders = async () => {
-    const data = await fetchRuleProviders();
-    setProviders(data);
+    try {
+      const data = await fetchRuleProviders();
+      setProviders(data);
+    } catch {
+      toast.error("Failed to load rule providers");
+    }
   };
 
   const handleRefreshProvider = async (name: string) => {
     setRefreshingProvider(name);
-    await updateRuleProvider(name);
-    await loadProviders();
-    setRefreshingProvider(null);
+    try {
+      await updateRuleProvider(name);
+      await loadProviders();
+      toast.success(`Updated ${name}`);
+    } catch {
+      toast.error(`Failed to update ${name}`);
+    } finally {
+      setRefreshingProvider(null);
+    }
   };
 
   const handleRefreshAllProviders = async () => {
     setIsRefreshing(true);
-    await updateAllRuleProviders(providers.names);
-    await loadProviders();
-    setIsRefreshing(false);
+    try {
+      await updateAllRuleProviders(providers.names);
+      await loadProviders();
+      toast.success("All providers updated");
+    } catch {
+      toast.error("Failed to update providers");
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   // Filter rules

@@ -8,7 +8,9 @@ import {
   Link as LinkIcon,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageSwitcher } from "./language-switcher";
 
 const icons = {
   activity: Activity,
@@ -63,13 +65,14 @@ const pages: Array<{
 
 export default function SideBar() {
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <div className="hidden lg:flex w-64 flex-col border-r bg-card/50 backdrop-blur-sm p-4">
       {/* Logo */}
       <div className="mb-8 px-4">
-        <div className="flex items-center justify-center gap-3 py-4 px-4 rounded-xl bg-primary/10">
-          <img src="/logo.png" alt="Logo" className="h-6 w-6" />
+        <div className="flex items-center justify-center gap-3 py-4 px-4 rounded-xl bg-primary/5 border border-primary/10">
+          <img src="/logo.svg" alt="Logo" className="h-8 w-8" />
           <span className="text-2xl font-bold text-primary">Deboard</span>
         </div>
       </div>
@@ -80,14 +83,17 @@ export default function SideBar() {
             to={to}
             isActive={location.pathname === to}
             iconId={iconId}
-            labelText={labelText}
+            labelText={t(`nav.${labelText.toLowerCase()}`)}
           />
         ))}
       </nav>
 
-      {/* Theme Toggle */}
-      <div className="mt-auto px-4 pb-6">
-        <ThemeToggle />
+      {/* Theme & Language Toggle */}
+      <div className="mt-auto space-y-2 px-4 pb-6">
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <LanguageSwitcher />
+        </div>
       </div>
 
       <div className="pt-4 border-t border-border/50">

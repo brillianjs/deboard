@@ -4,29 +4,29 @@
 
 @layer base {
   :root {
-    /* Light theme - inspired by craftz.dog */
-    --background: 38 100% 98%;
+    /* Light theme - harmonized with dark mode blue-purple palette */
+    --background: 220 15% 97%;
     --foreground: 220 20% 15%;
-    --card: 0 0% 100%;
+    --card: 220 10% 99%;
     --card-foreground: 220 20% 15%;
-    --popover: 0 0% 100%;
+    --popover: 220 10% 99%;
     --popover-foreground: 220 20% 15%;
-    --primary: 175 60% 50%;
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 340 82% 67%;
+    --secondary: 262 83% 70%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 38 50% 95%;
+    --muted: 220 15% 94%;
     --muted-foreground: 220 10% 45%;
-    --accent: 340 82% 95%;
-    --accent-foreground: 340 82% 40%;
+    --accent: 217 91% 95%;
+    --accent-foreground: 217 91% 40%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 38 30% 90%;
-    --input: 38 30% 90%;
-    --ring: 175 60% 50%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 217 91% 60%;
     --radius: 1rem;
-    --chart-1: 175 60% 50%;
-    --chart-2: 340 82% 67%;
+    --chart-1: 217 91% 60%;
+    --chart-2: 262 83% 70%;
     --chart-3: 38 92% 50%;
     --chart-4: 270 60% 60%;
     --chart-5: 160 60% 45%;

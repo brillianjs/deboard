@@ -1,0 +1,72 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle with Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main Circle Background -->
+  <circle cx="64" cy="64" r="60" fill="url(#bgGradient)" opacity="0.95"/>
+  
+  <!-- Network Nodes (Pentagon Pattern) -->
+  <!-- Center Node -->
+  <circle cx="64" cy="64" r="8" fill="white" opacity="0.95"/>
+  
+  <!-- Top Node -->
+  <circle cx="64" cy="28" r="6" fill="white" opacity="0.9"/>
+  
+  <!-- Top Right Node -->
+  <circle cx="94" cy="46" r="6" fill="white" opacity="0.9"/>
+  
+  <!-- Bottom Right Node -->
+  <circle cx="84" cy="88" r="6" fill="white" opacity="0.9"/>
+  
+  <!-- Bottom Left Node -->
+  <circle cx="44" cy="88" r="6" fill="white" opacity="0.9"/>
+  
+  <!-- Top Left Node -->
+  <circle cx="34" cy="46" r="6" fill="white" opacity="0.9"/>
+  
+  <!-- Connection Lines -->
+  <!-- From Center to All Nodes -->
+  <line x1="64" y1="64" x2="64" y2="28" stroke="white" stroke-width="2.5" opacity="0.6" stroke-linecap="round"/>
+  <line x1="64" y1="64" x2="94" y2="46" stroke="white" stroke-width="2.5" opacity="0.6" stroke-linecap="round"/>
+  <line x1="64" y1="64" x2="84" y2="88" stroke="white" stroke-width="2.5" opacity="0.6" stroke-linecap="round"/>
+  <line x1="64" y1="64" x2="44" y2="88" stroke="white" stroke-width="2.5" opacity="0.6" stroke-linecap="round"/>
+  <line x1="64" y1="64" x2="34" y2="46" stroke="white" stroke-width="2.5" opacity="0.6" stroke-linecap="round"/>
+  
+  <!-- Pentagon Outline -->
+  <path d="M 64 28 L 94 46 L 84 88 L 44 88 L 34 46 Z" 
+        stroke="white" 
+        stroke-width="2" 
+        fill="none" 
+        opacity="0.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+  
+  <!-- Data Flow Indicators (Small animated dots would go here in actual usage) -->
+  <circle cx="64" cy="46" r="2" fill="#60a5fa" opacity="0.8"/>
+  <circle cx="79" cy="55" r="2" fill="#60a5fa" opacity="0.8"/>
+  <circle cx="74" cy="76" r="2" fill="#60a5fa" opacity="0.8"/>
+  <circle cx="54" cy="76" r="2" fill="#60a5fa" opacity="0.8"/>
+  <circle cx="49" cy="55" r="2" fill="#60a5fa" opacity="0.8"/>
+  
+  <!-- Center Glow -->
+  <circle cx="64" cy="64" r="10" fill="white" opacity="0.2"/>
+  <circle cx="64" cy="64" r="8" fill="white" opacity="0.95"/>
+  
+  <!-- Shine Effect -->
+  <path d="M 24 24 Q 64 20, 104 24" 
+        stroke="url(#shineGradient)" 
+        stroke-width="3" 
+        fill="none" 
+        opacity="0.4"
+        stroke-linecap="round"/>
+</svg>

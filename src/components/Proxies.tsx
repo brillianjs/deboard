@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Search, RefreshCw } from "lucide-react";
+import { toast } from "sonner";
 import { ProxyGroupCard } from "@/components/ProxyGroupCard";
 import { fetchProxies } from "@/api/proxies";
 import type {
@@ -15,14 +16,20 @@ export default function Proxies() {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const loadProxies = async () => {
+  const loadProxies = async (showToast = false) => {
     try {
       setLoading(true);
       setError(null);
       const data = await fetchProxies();
       setProxiesData(data);
+      if (showToast) {
+        toast.success("Proxies refreshed");
+      }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load proxies");
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to load proxies";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -49,7 +56,7 @@ export default function Proxies() {
         <h2 className="text-lg font-semibold text-red-500 mb-2">Error</h2>
         <p className="text-red-400">{error}</p>
         <button
-          onClick={loadProxies}
+          onClick={() => loadProxies(true)}
           className="mt-4 px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 transition-colors"
         >
           Retry
@@ -105,7 +112,7 @@ export default function Proxies() {
           <Button
             variant="outline"
             size="icon"
-            onClick={loadProxies}
+            onClick={() => loadProxies(true)}
             disabled={loading}
             title="Refresh proxies"
           >

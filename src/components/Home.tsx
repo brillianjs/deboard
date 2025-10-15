@@ -1,5 +1,6 @@
 import TrafficNow from "./TrafficNow";
 import TrafficChart from "./TrafficChart";
+import MemoryChart from "./MemoryChart";
 
 export default function Home(): React.JSX.Element {
   return (
@@ -19,6 +20,11 @@ export default function Home(): React.JSX.Element {
       {/* Traffic Chart */}
       <div>
         <TrafficChart />
+      </div>
+
+      {/* Memory Chart */}
+      <div>
+        <MemoryChart />
       </div>
     </div>
   );
