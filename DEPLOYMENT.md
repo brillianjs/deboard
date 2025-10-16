@@ -52,7 +52,14 @@ The project includes GitHub Actions workflow for automatic deployment.
 - **Automatic Trigger**: Deploys on every push to `main` branch
 - **Manual Trigger**: Can be triggered manually from Actions tab
 - **Caching**: Uses pnpm cache for faster builds
+- **Flexible Installation**: Uses `--no-frozen-lockfile` for compatibility
 - **Optimized**: Only builds and deploys when needed
+
+### Important Notes
+
+- The workflow uses `pnpm install --no-frozen-lockfile` to handle lockfile compatibility
+- Make sure `pnpm-lock.yaml` is committed to your repository
+- The workflow will generate a new lockfile if needed during CI
 
 ## 🛠️ Manual Deployment
 
