@@ -9,7 +9,9 @@
     "rules": "Rules",
     "connections": "Conns",
     "config": "Config",
-    "logs": "Logs"
+    "logs": "Logs",
+    "logout": "Logout",
+    "loggedOut": "Logged out successfully"
   },
   "overview": {
     "title": "Overview",

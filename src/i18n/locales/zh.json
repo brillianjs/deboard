@@ -9,7 +9,9 @@
     "rules": "规则",
     "connections": "连接",
     "config": "配置",
-    "logs": "日志"
+    "logs": "日志",
+    "logout": "登出",
+    "loggedOut": "成功登出"
   },
   "overview": {
     "title": "概览",

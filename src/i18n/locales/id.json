@@ -9,7 +9,9 @@
     "rules": "Aturan",
     "connections": "Koneksi",
     "config": "Konfigurasi",
-    "logs": "Log"
+    "logs": "Log",
+    "logout": "Keluar",
+    "loggedOut": "Berhasil keluar"
   },
   "overview": {
     "title": "Ringkasan",
