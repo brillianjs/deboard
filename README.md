@@ -148,6 +148,39 @@ pnpm build
 
 The built files will be in the `dist/` directory.
 
+### Deploy to GitHub Pages
+
+#### Automatic Deployment (Recommended)
+
+The project is configured with GitHub Actions for automatic deployment:
+
+1. **Enable GitHub Pages**:
+   - Go to your repository Settings → Pages
+   - Source: Select "GitHub Actions"
+2. **Push to main branch**:
+
+   ```bash
+   git add .
+   git commit -m "Deploy to GitHub Pages"
+   git push origin main
+   ```
+
+3. **Access your site**:
+   - Your dashboard will be available at: `https://brillianjs.github.io/deboard/`
+   - Wait for the GitHub Action to complete (check Actions tab)
+
+#### Manual Deployment
+
+```bash
+# Install gh-pages package
+pnpm install -D gh-pages
+
+# Build and deploy
+pnpm deploy
+```
+
+**Note**: Update `base: "/deboard/"` in `vite.config.ts` if your repository name is different.
+
 ## 📱 Responsive Design
 
 ### Desktop View (≥1024px)
