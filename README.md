@@ -166,8 +166,30 @@ The project is configured with GitHub Actions for automatic deployment:
    ```
 
 3. **Access your site**:
-   - Your dashboard will be available at: `https://brillianjs.github.io/deboard/`
+   - Custom Domain: `https://deboard.itsjo.me`
+   - GitHub Pages: `https://brillianjs.github.io/deboard/`
    - Wait for the GitHub Action to complete (check Actions tab)
+
+#### Custom Domain Setup
+
+This project is configured with custom domain `deboard.itsjo.me`.
+
+**DNS Configuration Required:**
+
+1. Add CNAME record at your DNS provider:
+
+   ```
+   Type: CNAME
+   Name: deboard
+   Value: brillianjs.github.io
+   ```
+
+2. Configure in GitHub:
+   - Go to Settings → Pages
+   - Custom domain: `deboard.itsjo.me`
+   - Enable "Enforce HTTPS"
+
+For detailed instructions, see [CUSTOM_DOMAIN.md](./CUSTOM_DOMAIN.md)
 
 #### Manual Deployment
 

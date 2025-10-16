@@ -10,7 +10,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/deboard/", // GitHub Pages base path
+  base: "/", // Custom domain uses root path
   build: {
     outDir: "dist",
     assetsDir: "assets",
